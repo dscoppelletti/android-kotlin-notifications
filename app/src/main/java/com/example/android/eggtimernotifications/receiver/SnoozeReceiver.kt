@@ -31,7 +31,8 @@ class SnoozeReceiver: BroadcastReceiver() {
     private val REQUEST_CODE = 0
 
     override fun onReceive(context: Context, intent: Intent) {
-        val triggerTime = SystemClock.elapsedRealtime() + DateUtils.MINUTE_IN_MILLIS
+        val triggerTime = SystemClock.elapsedRealtime() +
+                DateUtils.MINUTE_IN_MILLIS
 
         val notifyIntent = Intent(context, AlarmReceiver::class.java)
         val notifyPendingIntent = PendingIntent.getBroadcast(
@@ -40,13 +41,21 @@ class SnoozeReceiver: BroadcastReceiver() {
             notifyIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as
+                AlarmManager
         AlarmManagerCompat.setExactAndAllowWhileIdle(
             alarmManager,
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
             triggerTime,
             notifyPendingIntent
         )
-    }
 
+        // TODO STEP 2.2 - Cancel all notifications
+        val notificationManager = ContextCompat.getSystemService(
+                context,
+                NotificationManager::class.java
+        ) as NotificationManager
+        notificationManager.cancelAll()
+        // TODO STEP END 2.2
+    }
 }

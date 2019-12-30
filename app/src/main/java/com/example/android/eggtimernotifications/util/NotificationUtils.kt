@@ -27,44 +27,147 @@ import com.example.android.eggtimernotifications.R
 import com.example.android.eggtimernotifications.receiver.SnoozeReceiver
 
 // Notification ID.
-private val NOTIFICATION_ID = 0
-private val REQUEST_CODE = 0
-private val FLAGS = 0
+private const val NOTIFICATION_ID = 0
+private const val REQUEST_CODE = 0
+private const val FLAGS = PendingIntent.FLAG_ONE_SHOT
 
-// TODO: Step 1.1 extension function to send messages (GIVEN)
+// TODO STEP 1.1 - Extension function to send messages (GIVEN)
 /**
  * Builds and delivers the notification.
  *
- * @param context, activity context.
+ * @param applicationContext Activity context.
  */
-fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context) {
+fun NotificationManager.sendNotification(
+        messageBody: String,
+        applicationContext: Context) {
     // Create the content intent for the notification, which launches
     // this activity
-    // TODO: Step 1.11 create intent
+    // TODO STEP 1.11 - Create Intent
+    val contentIntent = Intent(applicationContext, MainActivity::class.java)
+    // TODO END STEP 1.11
 
-    // TODO: Step 1.12 create PendingIntent
+    /* DOC STEP 1.12 - Create PendingIntent
+    You created the intent, but the notification is displayed outside your app.
+    To make an intent work outside your app, you need to create a new
+    PendingIntent.
 
-    // TODO: Step 2.0 add style
+    PendingIntent grants rights to another application or the system to perform
+    an operation on behalf of your application. A PendingIntent itself is simply
+    a reference to a token maintained by the system describing the original data
+    used to retrieve it. This means that, even if its owning application's
+    process is killed, the PendingIntent itself will remain usable from other
+    processes it has been given to. In this case, the system will use the
+    pending intent to open the app on behalf of you, regardless of whether or
+    not the timer app is running.
+    DOC END STEP 1.12 */
 
-    // TODO: Step 2.2 add snooze action
+    // TODO STEP 1.12 - Create PendingIntent
+    val contentPendingIntent = PendingIntent.getActivity(
+            applicationContext,
+            NOTIFICATION_ID,
+            contentIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+    )
+    // TODO END STEP 1.12
 
-    // TODO: Step 1.2 get an instance of NotificationCompat.Builder
+    // TODO STEP 2.0 - Add style
+    val eggImage = BitmapFactory.decodeResource(
+            applicationContext.resources,
+            R.drawable.cooked_egg
+    )
+
+    val bigPicStyle = NotificationCompat.BigPictureStyle()
+            .bigPicture(eggImage)
+            .bigLargeIcon(null)
+    // TODO END STEP 2.0
+
+    // TODO STEP 2.2 - Add snooze action
+    val snoozeIntent = Intent(applicationContext, SnoozeReceiver::class.java)
+    val snoozePendingIntent: PendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            REQUEST_CODE,
+            snoozeIntent,
+            FLAGS
+    )
+    // TODO END STEP 2.2
+
+    /* DOC STEP 1.2 - Get an instance of NotificationCompat.Builder
+    Starting with API level 26, all notifications must be assigned to a channel.
+    Notification Channels are a way to group notifications. By grouping together
+    similar types of notifications, developers and users can control all of the
+    notifications in the channel. Once a channel is created, it can be used to
+    deliver any number of notifications.
+    DOC END STEP 1.2 */
+
+    // TODO STEP 1.2 - Get an instance of NotificationCompat.Builder
     // Build the notification
+    val builder = NotificationCompat.Builder(
+            applicationContext,
+            applicationContext.getString(R.string.egg_notification_channel_id)
+    )
+    // TODO END STEP 1.2
 
-    // TODO: Step 1.8 use the new 'breakfast' notification channel
+    // TODO STEP 1.3 - Set title, text and icon to builder
+            .setSmallIcon(R.drawable.cooked_egg)
+            .setContentTitle(applicationContext.getString(
+                    R.string.notification_title))
+            .setContentText(messageBody)
+    // TODO END STEP 1.3
 
-    // TODO: Step 1.3 set title, text and icon to builder
+    // TODO STEP 1.13 - Set content intent
+            .setContentIntent(contentPendingIntent)
+            .setAutoCancel(true)
+    // TODO END STEP 1.13
 
-    // TODO: Step 1.13 set content intent
+            /* DOC STEP 2.1
+            - OnePlus A3003, Android 9
+            - Genymotion 2.14.0, Google Pixel 2, Android 8.0.0
+            If I open the notification by pulling down the status bar, it is
+            expanded straightway.
+            DOC END STEP 2.1 */
 
-        // TODO: Step 2.1 add style to builder
+        // TODO STEP 2.1 - Add style to builder
+            .setStyle(bigPicStyle)
+            .setLargeIcon(eggImage)
+        // TODO END STEP 2.1
 
-        // TODO: Step 2.3 add snooze action
+        // TODO STEP 2.3 - Add snooze action
+            .addAction(
+                    R.drawable.egg_icon,
+                    applicationContext.getString(R.string.snooze),
+                    snoozePendingIntent
+            )
+        // TODO END STEP 2.3
 
-        // TODO: Step 2.5 set priority
+            /* DOC STEP 2.5 - Set priority
+            To support devices running Android 7.1 (API level 25) or lower, you
+            must also call setPriority() for each notification, using a priority
+            constant from the NotificationCompat class.
+            DOC END STEP 2.5 */
 
-    // TODO: Step 1.4 call notify
+        // TODO STEP 2.5 - Set priority
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+        // TODO END STEP 2.5
 
+    /* DOC STEP 1.4 - Call notify
+    NOTIFICATION_ID represents the current notification instance and is needed
+    for updating or canceling this notification. Since your app will only have
+    one active notification at a given time, you can use the same ID for all
+    your notifications.
+    DOC END STEP 1.4 */
+
+    // TODO STEP 1.4 - Call notify
+            notify(NOTIFICATION_ID, builder.build())
+    // TODO END STEP 1.4
 }
+// TODO END STEP 1.1
 
-// TODO: Step 1.14 Cancel all notifications
+// TODO STEP 1.14 - Cancel all notifications
+/**
+ * Cancels all notifications.
+ *
+ */
+fun NotificationManager.cancelNotifications() {
+    cancelAll()
+}
+// TODO END STEP 1.14
