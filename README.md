@@ -42,7 +42,7 @@ Lab path
 
     `EggTimerFragment` is part of the UI portion of the app.
 
-1. [EggTimerViewModel.kt](http://github.com/dscoppelletti/android-kotlin-notifications/blob/attend/app/src/main/java/com/example/android/eggtimernotifications/ui/EggTinerViewModel.kt)
+1. [EggTimerViewModel.kt](http://github.com/dscoppelletti/android-kotlin-notifications/blob/attend/app/src/main/java/com/example/android/eggtimernotifications/ui/EggTimerViewModel.kt)
 
     `EggTimerViewModel` is responsible for starting and canceling the timer and
     for other lifecycle-related app tasks.
@@ -75,7 +75,7 @@ notification.
     * Step 1.2 - Get an instance of `NotificationCompat.Builder`
     * Step 1.3 - Set title, text and icon to builder
     * Step 1.4 - Call notify
-1. [EggTimerViewModel.kt](http://github.com/dscoppelletti/android-kotlin-notifications/blob/attend/app/src/main/java/com/example/android/eggtimernotifications/ui/EggTinerViewModel.kt)
+1. [EggTimerViewModel.kt](http://github.com/dscoppelletti/android-kotlin-notifications/blob/attend/app/src/main/java/com/example/android/eggtimernotifications/ui/EggTimerViewModel.kt)
     * Step 1.5 - Get an instance of `NotificationManager` and call
         `sendNotification`
 
@@ -99,7 +99,7 @@ Developers set the initial settings, importance and behavior, to be applied to
 all notifications in a channel. After you set the initial settings, users can
 override these settings.
 
-1. [EggTimerViewModel.kt](http://github.com/dscoppelletti/android-kotlin-notifications/blob/attend/app/src/main/java/com/example/android/eggtimernotifications/ui/EggTinerViewModel.kt)
+1. [EggTimerViewModel.kt](http://github.com/dscoppelletti/android-kotlin-notifications/blob/attend/app/src/main/java/com/example/android/eggtimernotifications/ui/EggTimerViewModel.kt)
     * Step 1.6 - Create a channel
     * Step 1.7 - Call create channel
 
@@ -108,7 +108,7 @@ override these settings.
 1. [AlarmReceiver.kt](http://github.com/dscoppelletti/android-kotlin-notifications/blob/attend/app/src/main/java/com/example/android/eggtimernotifications/receiver/AlarmReceiver.kt)
     * Step 1.9 - Add call to `sendNotification`
     * Step 1.10 - Remove toast
-1. [EggTimerViewModel.kt](http://github.com/dscoppelletti/android-kotlin-notifications/blob/attend/app/src/main/java/com/example/android/eggtimernotifications/ui/EggTinerViewModel.kt)
+1. [EggTimerViewModel.kt](http://github.com/dscoppelletti/android-kotlin-notifications/blob/attend/app/src/main/java/com/example/android/eggtimernotifications/ui/EggTimerViewModel.kt)
     * Step 1.10 - Remove the notification code 
 
 #### 4.4. Add a content intent
@@ -142,7 +142,7 @@ timer.
 
 1. [NotificationUtils.kt](http://github.com/dscoppelletti/android-kotlin-notifications/blob/attend/app/src/main/java/com/example/android/eggtimernotifications/util/NotificationUtils.kt)
     * Step 1.14 - Cancel all notifications
-1. [EggTimerViewModel.kt](http://github.com/dscoppelletti/android-kotlin-notifications/blob/attend/app/src/main/java/com/example/android/eggtimernotifications/ui/EggTinerViewModel.kt)
+1. [EggTimerViewModel.kt](http://github.com/dscoppelletti/android-kotlin-notifications/blob/attend/app/src/main/java/com/example/android/eggtimernotifications/ui/EggTimerViewModel.kt)
     * Step 1.15 - Call cancel notification
 
 ### 5. Customizing Notifications
