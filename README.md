@@ -232,8 +232,5 @@ for your notifications, so you can disable them on a per-channel basis.
 References
 ----------
 
-* [Notifications Overview](http://developer.android.com/guide/topics/ui/notifiers/notifications)
-* [Create and Manage Notification Channels](http://developer.android.com/training/notify-user/channels)
 * [Intents and Intent Filters](http://developer.android.com/guide/components/intents-filters)
-* [Create an Expandable Notification](http://developer.android.com/training/notify-user/expanded)
 * [Notification design guide](http://material.io/design/platform-guidance/android-notifications.html#settings)
