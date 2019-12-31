@@ -120,7 +120,8 @@ class EggTimerViewModel(private val app: Application) : AndroidViewModel(app) {
                     0 -> SECOND * 10 //For testing only
                     else ->timerLengthOptions[timerLengthSelection] * MINUTE
                 }
-                val triggerTime = SystemClock.elapsedRealtime() + selectedInterval
+                val triggerTime = SystemClock.elapsedRealtime() +
+                        selectedInterval
 
                 // TODO STEP 1.5 - Get an instance of NotificationManager and
                 // call sendNotification
@@ -166,7 +167,8 @@ class EggTimerViewModel(private val app: Application) : AndroidViewModel(app) {
             val triggerTime = loadTime()
             timer = object : CountDownTimer(triggerTime, SECOND) {
                 override fun onTick(millisUntilFinished: Long) {
-                    _elapsedTime.value = triggerTime - SystemClock.elapsedRealtime()
+                    _elapsedTime.value = triggerTime -
+                            SystemClock.elapsedRealtime()
                     if (_elapsedTime.value!! <= 0) {
                         resetTimer()
                     }

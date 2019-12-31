@@ -28,8 +28,6 @@ import androidx.core.app.AlarmManagerCompat
 import androidx.core.content.ContextCompat
 
 class SnoozeReceiver: BroadcastReceiver() {
-    private val REQUEST_CODE = 0
-
     override fun onReceive(context: Context, intent: Intent) {
         val triggerTime = SystemClock.elapsedRealtime() +
                 DateUtils.MINUTE_IN_MILLIS
@@ -57,5 +55,9 @@ class SnoozeReceiver: BroadcastReceiver() {
         ) as NotificationManager
         notificationManager.cancelAll()
         // TODO STEP END 2.2
+    }
+
+    private companion object {
+        const val REQUEST_CODE = 0
     }
 }
